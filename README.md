@@ -1,4 +1,4 @@
-# Linlib [![license](http://img.shields.io/badge/license-MIT-red.svg?style=flat)](LICENSE)
+# Linlib [![build status](https://gitlab.com/ci/projects/20830/status.png?ref=master)](https://gitlab.com/ci/projects/20830?ref=master) [![license](http://img.shields.io/badge/license-MIT-red.svg?style=flat)](LICENSE)
 **Linlib** is an open source library that provides linear algebra structures and algorithms. It is multiplataform, written in C++11, and is available at https://gitlab.com/wesleyceraso/linlib or https://github.com/wesleyceraso/linlib.
 
 ### Features
