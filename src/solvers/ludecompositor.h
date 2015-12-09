@@ -7,7 +7,7 @@ class LuDecompositor
 {
 public:
     template <class L, class U = L, class T>
-    static std::pair<L, L> decompose(const T& coeficients)
+    static std::pair<L, U> decompose(const T& coeficients)
     {
         assert(coeficients.rows() == coeficients.columns());
         L l(MatrixUtils::identity<L>(coeficients.rows()));
