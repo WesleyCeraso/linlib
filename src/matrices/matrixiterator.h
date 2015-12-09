@@ -28,10 +28,7 @@ public:
     bool operator!=(const I& rhs) const {return !static_cast<const I*>(this)->equal(rhs);}
 
     return_type operator*() const {return static_cast<const I*>(this)->dereference();}
-    return_type operator->() const {return static_cast<const I*>(this)->dereference();}
-
-    return_type operator*() {return static_cast<I*>(this)->dereference();}
-    return_type operator->() {return static_cast<I*>(this)->dereference();}
+    return_type operator->() const {return this->operator*();}
 
     difference_type operator-(const I& rhs) const {return rhs.distance_to(*static_cast<const I*>(this));}
 
