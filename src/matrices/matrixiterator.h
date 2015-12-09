@@ -33,7 +33,7 @@ public:
     return_type operator*() {return static_cast<I*>(this)->dereference();}
     return_type operator->() {return static_cast<I*>(this)->dereference();}
 
-    difference_type operator-(const I& rhs) const {return static_cast<const I*>(this)->distance_to(rhs);}
+    difference_type operator-(const I& rhs) const {return rhs.distance_to(*static_cast<const I*>(this));}
 
     size_type row() const {return static_cast<const I*>(this)->currentRow();}
     size_type column() const {return static_cast<const I*>(this)->currentColumn();}

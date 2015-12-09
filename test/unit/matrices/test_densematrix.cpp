@@ -6,14 +6,18 @@ typedef ::testing::Types<DenseMatrix<int>,
 
 INSTANTIATE_TYPED_TEST_CASE_P(DenseMatrix, MatrixTest, DenseMatrixTests);
 
-TEST(DenseMatrix, CopyConstructor)
+TEST(DenseMatrix, begin)
 {
-    DenseMatrix<int> ci(3, 3);
-    ci[0][0] = 1;
-    ci[1][1] = 2;
-    ci[2][2] = 3;
+    DenseMatrix<> matrix(1, 1);
 
-    DenseMatrix<double> cd(ci);
+    EXPECT_NE(matrix.begin(), matrix.end());
+    EXPECT_EQ(matrix.begin() + 1, matrix.end());
+}
 
-    EXPECT_EQ(ci, cd);
+TEST(DenseMatrix, end)
+{
+    DenseMatrix<> matrix(1, 1);
+
+    EXPECT_NE(matrix.begin(), matrix.end());
+    EXPECT_EQ(matrix.begin(), matrix.end() - 1);
 }

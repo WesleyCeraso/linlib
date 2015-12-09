@@ -103,19 +103,15 @@ CompressedMatrixIterator<T, Const>& CompressedMatrixIterator<T, Const>::operator
 template <class T, bool Const>
 void CompressedMatrixIterator<T, Const>::increment()
 {
-    ++m_index;
-
-    if (m_index == m_matrix.m_rowIndex[m_row + 1])
+    if (m_row < m_matrix.rows() && ++m_index == m_matrix.m_rowIndex[m_row + 1])
         incrementRow();
 }
 
 template <class T, bool Const>
 void CompressedMatrixIterator<T, Const>::decrement()
 {
-    if (m_index == m_matrix.m_rowIndex[m_row])
+    if (m_row && --m_index == m_matrix.m_rowIndex[m_row])
         decrementRow();
-
-    --m_index;
 }
 
 template <class T, bool Const>

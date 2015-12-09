@@ -28,67 +28,49 @@ TYPED_TEST_P(MatrixTest, identity)
     EXPECT_EQ(MatrixUtils::identity<TypeParam>(3, value_type(5.)), myIdentity);
 }
 
-TYPED_TEST_P(MatrixTest, constructor)
-{
-    EXPECT_DEATH(TypeParam(0, 0), ".*");
-    EXPECT_DEATH(TypeParam(0, 1), ".*");
-    EXPECT_DEATH(TypeParam(1, 0), ".*");
-
-    TypeParam sm(1, 1);
-}
-
-TYPED_TEST_P(MatrixTest, operator_At)
-{
-	typedef typename TypeParam::value_type value_type;
-
-    TypeParam sm(1, 3);
-
-    EXPECT_EQ(sm[0][0], value_type(0.));
-    EXPECT_EQ(sm[0][1], value_type(0.));
-    EXPECT_EQ(sm[0][2], value_type(0.));
-
-	sm[0][0] = value_type(5.);
-    sm[0][1] = value_type(6.);
-    sm[0][2] = value_type(7.);
-
-    EXPECT_EQ(sm[0][0], value_type(5.));
-    EXPECT_EQ(sm[0][1], value_type(6.));
-    EXPECT_EQ(sm[0][2], value_type(7.));
-}
-
 TYPED_TEST_P(MatrixTest, rows)
 {
-    TypeParam sm1(1, 1);
-    EXPECT_EQ(sm1.rows(), 1);
+    TypeParam matrix1(1, 1);
+    EXPECT_EQ(matrix1.rows(), 1);
 
-    TypeParam sm2(2, 1);
-    EXPECT_EQ(sm2.rows(), 2);
+    TypeParam matrix2(2, 1);
+    EXPECT_EQ(matrix2.rows(), 2);
 
-    TypeParam sm3(10, 1);
-    EXPECT_EQ(sm3.rows(), 10);
+    TypeParam matrix3(10, 1);
+    EXPECT_EQ(matrix3.rows(), 10);
 }
 
 TYPED_TEST_P(MatrixTest, columns)
 {
-    TypeParam sm1(1, 1);
-    EXPECT_EQ(sm1.columns(), 1);
+    TypeParam matrix1(1, 1);
+    EXPECT_EQ(matrix1.columns(), 1);
 
-    TypeParam sm2(1, 2);
-    EXPECT_EQ(sm2.columns(), 2);
+    TypeParam matrix2(1, 2);
+    EXPECT_EQ(matrix2.columns(), 2);
 
-    TypeParam sm3(1, 10);
-    EXPECT_EQ(sm3.columns(), 10);
+    TypeParam matrix3(1, 10);
+    EXPECT_EQ(matrix3.columns(), 10);
+}
+
+TYPED_TEST_P(MatrixTest, clear)
+{
+    typedef typename TypeParam::value_type value_type;
+
+    TypeParam matrix(1, 1);
+    matrix[0][0] = std::numeric_limits<value_type>::max();
+    matrix.clear();
+    EXPECT_EQ(matrix[0][0], value_type());
 }
 
 TYPED_TEST_P(MatrixTest, transpose)
 {
-	typedef typename TypeParam::value_type value_type;
+    typedef typename TypeParam::value_type value_type;
 
     TypeParam matrix1(3, 4);
 
     matrix1[0][0] = value_type(0.);
     matrix1[0][1] = value_type(1.);
-	matrix1[0][2] = value_type(2.);
+    matrix1[0][2] = value_type(2.);
     matrix1[0][3] = value_type(9.);
     matrix1[1][0] = value_type(3.);
     matrix1[1][1] = value_type(4.);
@@ -113,6 +95,21 @@ TYPED_TEST_P(MatrixTest, transpose)
     EXPECT_EQ(transpose1[3][0], matrix1[0][3]);
     EXPECT_EQ(transpose1[3][1], matrix1[1][3]);
     EXPECT_EQ(transpose1[3][2], matrix1[2][3]);
+}
+
+TYPED_TEST_P(MatrixTest, operator_At)
+{
+    typedef typename TypeParam::value_type value_type;
+
+    TypeParam matrix(1, 3);
+
+    matrix[0][0] = value_type(5.);
+    matrix[0][1] = value_type(6.);
+    matrix[0][2] = value_type(7.);
+
+    EXPECT_EQ(matrix[0][0], value_type(5.));
+    EXPECT_EQ(matrix[0][1], value_type(6.));
+    EXPECT_EQ(matrix[0][2], value_type(7.));
 }
 
 TYPED_TEST_P(MatrixTest, operatorEquality)
@@ -310,16 +307,39 @@ TYPED_TEST_P(MatrixTest, operatorSubtraction)
     EXPECT_EQ(matrix8[2][2], -matrix9[2][2]);
 }
 
+TYPED_TEST_P(MatrixTest, constructor)
+{
+    typedef typename TypeParam::value_type value_type;
+
+    EXPECT_DEATH(TypeParam(0, 0), ".*");
+    EXPECT_DEATH(TypeParam(0, 1), ".*");
+    EXPECT_DEATH(TypeParam(1, 0), ".*");
+
+    TypeParam matrix(1, 1);
+    matrix[0][0] = std::numeric_limits<value_type>::max();
+
+    TypeParam matrix_copy(matrix);
+    EXPECT_EQ(matrix.rows(), matrix_copy.rows());
+    EXPECT_EQ(matrix.columns(), matrix_copy.columns());
+    EXPECT_EQ(matrix[0][0], matrix_copy[0][0]);
+
+    TypeParam matrix_move(std::move(matrix));
+    EXPECT_EQ(matrix_copy.rows(), matrix_move.rows());
+    EXPECT_EQ(matrix_copy.columns(), matrix_move.columns());
+    EXPECT_EQ(matrix_copy[0][0], matrix_move[0][0]);
+}
+
 REGISTER_TYPED_TEST_CASE_P(MatrixTest,
                            identity,
-                           constructor,
-                           operator_At,
                            rows,
                            columns,
+                           clear,
                            transpose,
+                           operator_At,
                            operatorEquality,
                            operatorMultiplication,
                            operatorAddition,
-                           operatorSubtraction);
+                           operatorSubtraction,
+                           constructor);
 
 #endif

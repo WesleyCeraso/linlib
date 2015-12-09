@@ -10,7 +10,7 @@
 #include <src/solvers/substitutionmethod.h>
 #include <fstream>
 
-unsigned int linhas_colunas = 60;
+unsigned int linhas_colunas = 80;
 unsigned int vertices_linha = linhas_colunas + 1;
 unsigned int vertices_total = vertices_linha * vertices_linha;
 
