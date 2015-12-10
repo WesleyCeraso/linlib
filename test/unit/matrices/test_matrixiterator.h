@@ -19,12 +19,15 @@ TYPED_TEST_P(MatrixIteratorTest, compoundAddition)
     
     iterator it = matrix.begin();
 
+    EXPECT_EQ(it.row(), 0);
     it += 3;
     EXPECT_EQ(std::distance(matrix.begin(), it), 3);
 
+    EXPECT_EQ(it.row(), 1);
     it += 3;
     EXPECT_EQ(std::distance(matrix.begin(), it), 6);
 
+    EXPECT_EQ(it.row(), 2);
     it += 3;
     EXPECT_EQ(std::distance(matrix.begin(), it), 9);
     EXPECT_EQ(it, matrix.end());
@@ -40,12 +43,15 @@ TYPED_TEST_P(MatrixIteratorTest, preIncrement)
 
     iterator it = matrix.begin();
 
+    EXPECT_EQ(it.row(), 0);
     it += 2;
     EXPECT_EQ(std::distance(matrix.begin(), ++it), 3);
 
+    EXPECT_EQ(it.row(), 1);
     it += 2;
     EXPECT_EQ(std::distance(matrix.begin(), ++it), 6);
 
+    EXPECT_EQ(it.row(), 2);
     it += 2;
     EXPECT_EQ(std::distance(matrix.begin(), ++it), 9);
     EXPECT_EQ(it, matrix.end());
@@ -60,12 +66,15 @@ TYPED_TEST_P(MatrixIteratorTest, posIncrement)
 
     iterator it = matrix.begin();
 
+    EXPECT_EQ(it.row(), 0);
     it += 2;
     EXPECT_EQ(std::distance(matrix.begin(), it++), 2);
 
+    EXPECT_EQ(it.row(), 1);
     it += 2;
     EXPECT_EQ(std::distance(matrix.begin(), it++), 5);
 
+    EXPECT_EQ(it.row(), 2);
     it += 2;
     EXPECT_EQ(std::distance(matrix.begin(), it++), 8);
     EXPECT_EQ(it, matrix.end());
@@ -80,12 +89,15 @@ TYPED_TEST_P(MatrixIteratorTest, addition)
 
     iterator it = matrix.begin();
 
+    EXPECT_EQ(it.row(), 0);
     it = it + 3;
     EXPECT_EQ(std::distance(matrix.begin(), it), 3);
 
+    EXPECT_EQ(it.row(), 1);
     it = it + 3;
     EXPECT_EQ(std::distance(matrix.begin(), it), 6);
 
+    EXPECT_EQ(it.row(), 2);
     it = it + 3;
     EXPECT_EQ(std::distance(matrix.begin(), it), 9);
     EXPECT_EQ(it, matrix.end());
@@ -102,12 +114,15 @@ TYPED_TEST_P(MatrixIteratorTest, compoundSubtraction)
 
     it -= 3;
     EXPECT_EQ(std::distance(matrix.begin(), it), 6);
+    EXPECT_EQ(it.row(), 2);
 
     it -= 3;
     EXPECT_EQ(std::distance(matrix.begin(), it), 3);
+    EXPECT_EQ(it.row(), 1);
 
     it -= 3;
     EXPECT_EQ(std::distance(matrix.begin(), it), 0);
+    EXPECT_EQ(it.row(), 0);
     EXPECT_EQ(it, matrix.begin());
 }
 
@@ -122,12 +137,15 @@ TYPED_TEST_P(MatrixIteratorTest, preDecrement)
 
     it -= 2;
     EXPECT_EQ(std::distance(matrix.begin(), --it), 6);
+    EXPECT_EQ(it.row(), 2);
 
     it -= 2;
     EXPECT_EQ(std::distance(matrix.begin(), --it), 3);
+    EXPECT_EQ(it.row(), 1);
 
     it -= 2;
     EXPECT_EQ(std::distance(matrix.begin(), --it), 0);
+    EXPECT_EQ(it.row(), 0);
     EXPECT_EQ(it, matrix.begin());
 }
 
@@ -142,12 +160,15 @@ TYPED_TEST_P(MatrixIteratorTest, posDecrement)
 
     it -= 2;
     EXPECT_EQ(std::distance(matrix.begin(), it--), 7);
+    EXPECT_EQ(it.row(), 2);
 
     it -= 2;
     EXPECT_EQ(std::distance(matrix.begin(), it--), 4);
+    EXPECT_EQ(it.row(), 1);
 
     it -= 2;
     EXPECT_EQ(std::distance(matrix.begin(), it--), 1);
+    EXPECT_EQ(it.row(), 0);
     EXPECT_EQ(it, matrix.begin());
 }
 
@@ -162,12 +183,15 @@ TYPED_TEST_P(MatrixIteratorTest, subtraction)
 
     it = it - 3;
     EXPECT_EQ(std::distance(matrix.begin(), it), 6);
+    EXPECT_EQ(it.row(), 2);
 
     it = it - 3;
     EXPECT_EQ(std::distance(matrix.begin(), it), 3);
+    EXPECT_EQ(it.row(), 1);
 
     it = it - 3;
     EXPECT_EQ(std::distance(matrix.begin(), it), 0);
+    EXPECT_EQ(it.row(), 0);
     EXPECT_EQ(it, matrix.begin());
 }
 

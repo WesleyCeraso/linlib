@@ -110,7 +110,7 @@ void CompressedMatrixIterator<T, Const>::increment()
 template <class T, bool Const>
 void CompressedMatrixIterator<T, Const>::decrement()
 {
-    if (m_row && --m_index == m_matrix.m_rowIndex[m_row])
+    if (m_index && m_index-- == m_matrix.m_rowIndex[m_row])
         decrementRow();
 }
 
